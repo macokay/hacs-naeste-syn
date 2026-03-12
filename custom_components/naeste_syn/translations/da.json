@@ -1,0 +1,45 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Opsæt Næste Syn",
+        "description": "Indtast din MotorAPI-nøgle og køretøjets nummerplade.\n\nSøg om API-adgang på [motorapi.dk](https://www.motorapi.dk).",
+        "data": {
+          "api_key": "API-nøgle",
+          "registration_number": "Nummerplade (fx AB12345)",
+          "show_vin": "Vis stelnummer (VIN)",
+          "show_use": "Vis anvendelsestype",
+          "show_mot_mileage": "Vis kilometerstand ved seneste syn",
+          "show_make": "Vis mærke",
+          "show_model": "Vis model",
+          "show_model_year": "Vis modelår"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kunne ikke oprette forbindelse til MotorAPI. Tjek internetforbindelsen.",
+      "invalid_auth": "Ugyldig API-nøgle.",
+      "vehicle_not_found": "Køretøjet blev ikke fundet. Tjek nummerpladen.",
+      "unknown": "Uventet fejl. Tjek Home Assistant-loggen."
+    },
+    "abort": {
+      "already_configured": "Dette køretøj er allerede konfigureret."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Næste Syn-indstillinger",
+        "description": "Vælg hvilke valgfrie sensorer der skal vises for dette køretøj.",
+        "data": {
+          "show_vin": "Vis stelnummer (VIN)",
+          "show_use": "Vis anvendelsestype",
+          "show_mot_mileage": "Vis kilometerstand ved seneste syn",
+          "show_make": "Vis mærke",
+          "show_model": "Vis model",
+          "show_model_year": "Vis modelår"
+        }
+      }
+    }
+  }
+}

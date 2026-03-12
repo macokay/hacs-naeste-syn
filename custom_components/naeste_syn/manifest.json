@@ -1,0 +1,12 @@
+{
+  "domain": "naeste_syn",
+  "name": "Næste Syn",
+  "version": "1.0.0",
+  "documentation": "https://github.com/macokay/hacs-naeste-syn",
+  "issue_tracker": "https://github.com/macokay/hacs-naeste-syn/issues",
+  "dependencies": [],
+  "codeowners": ["@macokay"],
+  "requirements": [],
+  "iot_class": "cloud_polling",
+  "config_flow": true
+}

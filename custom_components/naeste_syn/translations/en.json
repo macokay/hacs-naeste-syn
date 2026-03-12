@@ -1,0 +1,45 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up Næste Syn",
+        "description": "Enter your MotorAPI key and your vehicle registration number.\n\nApply for API access at [motorapi.dk](https://www.motorapi.dk).",
+        "data": {
+          "api_key": "API Key",
+          "registration_number": "Registration Number (e.g. AB12345)",
+          "show_vin": "Show VIN",
+          "show_use": "Show vehicle use type",
+          "show_mot_mileage": "Show mileage at last MOT",
+          "show_make": "Show make",
+          "show_model": "Show model",
+          "show_model_year": "Show model year"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to MotorAPI. Check your internet connection.",
+      "invalid_auth": "Invalid API key.",
+      "vehicle_not_found": "Vehicle not found. Check the registration number.",
+      "unknown": "Unexpected error. Check the Home Assistant logs."
+    },
+    "abort": {
+      "already_configured": "This vehicle is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Næste Syn Options",
+        "description": "Choose which optional sensors to show for this vehicle.",
+        "data": {
+          "show_vin": "Show VIN",
+          "show_use": "Show vehicle use type",
+          "show_mot_mileage": "Show mileage at last MOT",
+          "show_make": "Show make",
+          "show_model": "Show model",
+          "show_model_year": "Show model year"
+        }
+      }
+    }
+  }
+}
