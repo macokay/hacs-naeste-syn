@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.3] - 2026-03-14
+
+### Changed
+- Renamed "MOT Deadline Date" to "Last MOT Date" to correctly reflect the field
+- Removed "Days Until MOT Deadline" sensor
+
 ## [1.0.2] - 2026-03-14
 
 ### Fixed

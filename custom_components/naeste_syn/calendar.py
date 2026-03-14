@@ -27,7 +27,7 @@ _LOGGER = logging.getLogger(__name__)
 # Tuples of (mot_info sub-key, calendar event summary label)
 CALENDAR_EVENTS = [
     (FIELD_NEXT_INSPECTION, "Periodic Inspection"),
-    (FIELD_MOT_DATE, "MOT Deadline"),
+    (FIELD_MOT_DATE, "Last MOT Date"),
 ]
 
 
