@@ -68,19 +68,7 @@ class NaesteSynSensorDescription(SensorEntityDescription):
 
 
 SENSORS: tuple[NaesteSynSensorDescription, ...] = (
-    # -- Always-present sensors -----------------------------------------------
-    NaesteSynSensorDescription(
-        key="registration_number",
-        name="Registration Number",
-        icon="mdi:car-key",
-        value_fn=lambda d: d.get(FIELD_REGISTRATION),
-    ),
-    NaesteSynSensorDescription(
-        key="next_inspection_date",
-        name="Next Inspection Date",
-        icon="mdi:calendar-check",
-        value_fn=lambda d: _mot(d).get(FIELD_NEXT_INSPECTION),
-    ),
+    # -- Always-present sensors (ordered as displayed in the device page) -----
     NaesteSynSensorDescription(
         key="next_inspection_days",
         name="Days Until Next Inspection",
@@ -90,12 +78,27 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         value_fn=lambda d: _days_until(_mot(d).get(FIELD_NEXT_INSPECTION)),
     ),
     NaesteSynSensorDescription(
+        key="next_inspection_date",
+        name="Next Inspection Date",
+        icon="mdi:calendar-check",
+        value_fn=lambda d: _mot(d).get(FIELD_NEXT_INSPECTION),
+    ),
+    NaesteSynSensorDescription(
         key="mot_date",
-        name="Last MOT Date",
+        name="Last Inspection Date",
         icon="mdi:calendar-check-outline",
         value_fn=lambda d: _mot(d).get(FIELD_MOT_DATE),
     ),
     # -- Optional sensors (controlled by config checkboxes) -------------------
+    NaesteSynSensorDescription(
+        key="mot_mileage",
+        name="Mileage at Last Inspection",
+        icon="mdi:counter",
+        native_unit_of_measurement="km",
+        state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda d: _mot(d).get(FIELD_MOT_MILEAGE),
+        config_key=CONF_SHOW_MOT_MILEAGE,
+    ),
     NaesteSynSensorDescription(
         key="vin",
         name="VIN",
@@ -104,20 +107,10 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         config_key=CONF_SHOW_VIN,
     ),
     NaesteSynSensorDescription(
-        key="use",
-        name="Vehicle Use",
-        icon="mdi:car-info",
-        value_fn=lambda d: d.get(FIELD_USE),
-        config_key=CONF_SHOW_USE,
-    ),
-    NaesteSynSensorDescription(
-        key="mot_mileage",
-        name="Mileage at Last MOT",
-        icon="mdi:counter",
-        native_unit_of_measurement="km",
-        state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: _mot(d).get(FIELD_MOT_MILEAGE),
-        config_key=CONF_SHOW_MOT_MILEAGE,
+        key="registration_number",
+        name="Registration Number",
+        icon="mdi:car-key",
+        value_fn=lambda d: d.get(FIELD_REGISTRATION),
     ),
     NaesteSynSensorDescription(
         key="make",
@@ -139,6 +132,13 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         icon="mdi:calendar-range",
         value_fn=lambda d: d.get(FIELD_MODEL_YEAR),
         config_key=CONF_SHOW_MODEL_YEAR,
+    ),
+    NaesteSynSensorDescription(
+        key="use",
+        name="Vehicle Use",
+        icon="mdi:car-info",
+        value_fn=lambda d: d.get(FIELD_USE),
+        config_key=CONF_SHOW_USE,
     ),
 )
 
