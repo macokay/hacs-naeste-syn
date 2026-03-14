@@ -91,17 +91,9 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
     ),
     NaesteSynSensorDescription(
         key="mot_date",
-        name="MOT Deadline Date",
-        icon="mdi:calendar-alert",
+        name="Last MOT Date",
+        icon="mdi:calendar-check-outline",
         value_fn=lambda d: _mot(d).get(FIELD_MOT_DATE),
-    ),
-    NaesteSynSensorDescription(
-        key="mot_days",
-        name="Days Until MOT Deadline",
-        icon="mdi:calendar-clock",
-        native_unit_of_measurement="days",
-        state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: _days_until(_mot(d).get(FIELD_MOT_DATE)),
     ),
     # -- Optional sensors (controlled by config checkboxes) -------------------
     NaesteSynSensorDescription(
