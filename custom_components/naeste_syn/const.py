@@ -3,9 +3,10 @@
 DOMAIN = "naeste_syn"
 
 # MotorAPI base URL and vehicle endpoint.
-# Adjust API_ENDPOINT if the real path differs (e.g. /v1/ vs /v2/).
-API_BASE_URL = "https://api.motorapi.dk"
-API_ENDPOINT = "/vehicles/v2/{registration}"
+# Confirmed from https://v1.motorapi.dk/doc/
+API_BASE_URL = "https://v1.motorapi.dk"
+API_ENDPOINT = "/vehicles/{registration}"
+API_AUTH_HEADER = "X-AUTH-TOKEN"
 
 # Config entry keys
 CONF_API_KEY = "api_key"
