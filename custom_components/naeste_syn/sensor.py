@@ -130,7 +130,7 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         key="model_year",
         name="Model Year",
         icon="mdi:calendar-range",
-        value_fn=lambda d: d.get(FIELD_MODEL_YEAR),
+        value_fn=lambda d: d.get(FIELD_MODEL_YEAR) or None,
         config_key=CONF_SHOW_MODEL_YEAR,
     ),
     NaesteSynSensorDescription(

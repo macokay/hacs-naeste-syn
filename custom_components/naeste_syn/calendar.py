@@ -63,8 +63,20 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
             model=d.get(FIELD_MODEL) or None,
         )
 
+    def _parse_date(self, date_str: str | None) -> date | None:
+        """Parse an ISO date string, return None on failure."""
+        if not date_str:
+            return None
+        try:
+            return date.fromisoformat(str(date_str)[:10])
+        except (ValueError, TypeError):
+            _LOGGER.warning(
+                "Næste Syn calendar: could not parse date '%s'", date_str
+            )
+            return None
+
     def _build_events(self) -> list[CalendarEvent]:
-        """Build CalendarEvent objects from coordinator data."""
+        """Build all-day CalendarEvent objects from coordinator data."""
         data = self.coordinator.data
         if not data:
             return []
@@ -82,31 +94,28 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
             if not date_str or str(date_str) in seen:
                 continue
             seen.add(str(date_str))
-            try:
-                d = date.fromisoformat(str(date_str)[:10])
-                start = datetime(d.year, d.month, d.day, 8, 0, 0)
-                events.append(
-                    CalendarEvent(
-                        start=start,
-                        end=start + timedelta(hours=2),
-                        summary=f"{label} — {self.coordinator.registration}",
-                        description=description,
-                    )
+
+            event_date = self._parse_date(date_str)
+            if event_date is None:
+                continue
+
+            # Use all-day events (date objects) to avoid timezone issues
+            events.append(
+                CalendarEvent(
+                    start=event_date,
+                    end=event_date + timedelta(days=1),
+                    summary=f"{label} — {self.coordinator.registration}",
+                    description=description,
                 )
-            except (ValueError, TypeError):
-                _LOGGER.warning(
-                    "Næste Syn calendar: could not parse date '%s' for key '%s'",
-                    date_str,
-                    sub_key,
-                )
+            )
 
         return events
 
     @property
     def event(self) -> CalendarEvent | None:
         """Return the next upcoming event (required by CalendarEntity)."""
-        now = datetime.now()
-        upcoming = [e for e in self._build_events() if e.end >= now]
+        today = date.today()
+        upcoming = [e for e in self._build_events() if e.end >= today]
         return min(upcoming, key=lambda e: e.start) if upcoming else None
 
     async def async_get_events(
@@ -116,4 +125,9 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
         end_date: datetime,
     ) -> list[CalendarEvent]:
         """Return all events within the requested date range."""
-        return [e for e in self._build_events() if start_date <= e.start <= end_date]
+        start = start_date.date() if isinstance(start_date, datetime) else start_date
+        end = end_date.date() if isinstance(end_date, datetime) else end_date
+        return [
+            e for e in self._build_events()
+            if e.start <= end and e.end >= start
+        ]

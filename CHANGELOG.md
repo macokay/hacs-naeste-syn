@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.6] - 2026-03-14
+
+### Fixed
+- Calendar entity no longer shows as unavailable — switched from naive datetime objects to all-day date objects, which avoids timezone compatibility issues with recent HA versions
+
+## [1.0.5] - 2026-03-14
+
+### Fixed
+- Model Year now returns None (unknown) instead of 0 when the API has no year data
+
+### Notes
+- Sensor order in the HA device page is always alphabetical — this is a Home Assistant UI limitation and cannot be controlled by the integration
+
 ## [1.0.4] - 2026-03-14
 
 ### Changed
