@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.0.2] - 2026-03-14
+
+### Fixed
+- MOT fields (date, mileage, next inspection date) now correctly extracted from nested `mot_info` object in the MotorAPI response
+- Calendar events now read from `mot_info` sub-object
+
 ## [1.0.1] - 2026-03-13
 
 ### Fixed
