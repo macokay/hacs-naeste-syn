@@ -16,6 +16,7 @@ from .const import (
     DOMAIN,
     API_BASE_URL,
     API_ENDPOINT,
+    API_AUTH_HEADER,
     CONF_API_KEY,
     CONF_REGISTRATION,
     CONF_SHOW_VIN,
@@ -49,7 +50,7 @@ async def _validate(api_key: str, registration: str) -> None:
         async with aiohttp.ClientSession() as session:
             async with session.get(
                 url,
-                headers={"X-API-Key": api_key},
+                headers={API_AUTH_HEADER: api_key},
                 timeout=aiohttp.ClientTimeout(total=30),
             ) as resp:
                 if resp.status == 401:

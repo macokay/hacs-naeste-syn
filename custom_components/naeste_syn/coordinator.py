@@ -11,7 +11,7 @@ import aiohttp
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, API_BASE_URL, API_ENDPOINT
+from .const import DOMAIN, API_BASE_URL, API_ENDPOINT, API_AUTH_HEADER
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class NaesteSynCoordinator(DataUpdateCoordinator[dict[str, Any]]):
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch fresh vehicle data from the MotorAPI."""
         url = f"{API_BASE_URL}{API_ENDPOINT.format(registration=self._registration)}"
-        headers = {"X-API-Key": self._api_key}
+        headers = {API_AUTH_HEADER: self._api_key}
 
         try:
             async with aiohttp.ClientSession() as session:

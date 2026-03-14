@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1] - 2026-03-13
+
+### Fixed
+- Corrected MotorAPI base URL to `https://v1.motorapi.dk`
+- Corrected authentication header from `X-API-Key` to `X-AUTH-TOKEN`
+- Corrected vehicle endpoint to `/vehicles/{registration}`
+
 ## [1.0.0] - 2026-03-12
 
 ### Added
