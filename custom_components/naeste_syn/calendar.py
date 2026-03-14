@@ -12,12 +12,19 @@ from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import DOMAIN, FIELD_MAKE, FIELD_MODEL, FIELD_NEXT_INSPECTION, FIELD_MOT_DATE
+from .const import (
+    DOMAIN,
+    FIELD_MAKE,
+    FIELD_MODEL,
+    FIELD_MOT_INFO,
+    FIELD_NEXT_INSPECTION,
+    FIELD_MOT_DATE,
+)
 from .coordinator import NaesteSynCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
-# Tuples of (api_field, calendar event summary label)
+# Tuples of (mot_info sub-key, calendar event summary label)
 CALENDAR_EVENTS = [
     (FIELD_NEXT_INSPECTION, "Periodic Inspection"),
     (FIELD_MOT_DATE, "MOT Deadline"),
@@ -62,6 +69,7 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
         if not data:
             return []
 
+        mot = data.get(FIELD_MOT_INFO) or {}
         make  = data.get(FIELD_MAKE, "")
         model = data.get(FIELD_MODEL, "")
         description = f"{make} {model}".strip() or self.coordinator.registration
@@ -69,8 +77,8 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
         events: list[CalendarEvent] = []
         seen: set[str] = set()
 
-        for api_field, label in CALENDAR_EVENTS:
-            date_str = data.get(api_field)
+        for sub_key, label in CALENDAR_EVENTS:
+            date_str = mot.get(sub_key)
             if not date_str or str(date_str) in seen:
                 continue
             seen.add(str(date_str))
@@ -87,9 +95,9 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
                 )
             except (ValueError, TypeError):
                 _LOGGER.warning(
-                    "Næste Syn calendar: could not parse date '%s' for field '%s'",
+                    "Næste Syn calendar: could not parse date '%s' for key '%s'",
                     date_str,
-                    api_field,
+                    sub_key,
                 )
 
         return events

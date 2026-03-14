@@ -32,13 +32,19 @@ from .const import (
     FIELD_MODEL,
     FIELD_MODEL_YEAR,
     FIELD_USE,
-    FIELD_NEXT_INSPECTION,
+    FIELD_MOT_INFO,
     FIELD_MOT_DATE,
     FIELD_MOT_MILEAGE,
+    FIELD_NEXT_INSPECTION,
 )
 from .coordinator import NaesteSynCoordinator
 
 _LOGGER = logging.getLogger(__name__)
+
+
+def _mot(data: dict[str, Any]) -> dict[str, Any]:
+    """Return the mot_info sub-object, or an empty dict if absent."""
+    return data.get(FIELD_MOT_INFO) or {}
 
 
 def _days_until(date_str: str | None) -> int | None:
@@ -73,7 +79,7 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         key="next_inspection_date",
         name="Next Inspection Date",
         icon="mdi:calendar-check",
-        value_fn=lambda d: d.get(FIELD_NEXT_INSPECTION),
+        value_fn=lambda d: _mot(d).get(FIELD_NEXT_INSPECTION),
     ),
     NaesteSynSensorDescription(
         key="next_inspection_days",
@@ -81,13 +87,13 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         icon="mdi:calendar-clock",
         native_unit_of_measurement="days",
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: _days_until(d.get(FIELD_NEXT_INSPECTION)),
+        value_fn=lambda d: _days_until(_mot(d).get(FIELD_NEXT_INSPECTION)),
     ),
     NaesteSynSensorDescription(
         key="mot_date",
         name="MOT Deadline Date",
         icon="mdi:calendar-alert",
-        value_fn=lambda d: d.get(FIELD_MOT_DATE),
+        value_fn=lambda d: _mot(d).get(FIELD_MOT_DATE),
     ),
     NaesteSynSensorDescription(
         key="mot_days",
@@ -95,7 +101,7 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         icon="mdi:calendar-clock",
         native_unit_of_measurement="days",
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: _days_until(d.get(FIELD_MOT_DATE)),
+        value_fn=lambda d: _days_until(_mot(d).get(FIELD_MOT_DATE)),
     ),
     # -- Optional sensors (controlled by config checkboxes) -------------------
     NaesteSynSensorDescription(
@@ -118,7 +124,7 @@ SENSORS: tuple[NaesteSynSensorDescription, ...] = (
         icon="mdi:counter",
         native_unit_of_measurement="km",
         state_class=SensorStateClass.MEASUREMENT,
-        value_fn=lambda d: d.get(FIELD_MOT_MILEAGE),
+        value_fn=lambda d: _mot(d).get(FIELD_MOT_MILEAGE),
         config_key=CONF_SHOW_MOT_MILEAGE,
     ),
     NaesteSynSensorDescription(
