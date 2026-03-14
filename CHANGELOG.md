@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.4] - 2026-03-14
+
+### Changed
+- Reordered sensors: Days Until Next Inspection, Next Inspection Date, Last Inspection Date, Mileage at Last Inspection, VIN, Registration Number, Make, Model, Model Year, Vehicle Use
+- Renamed "Last MOT Date" to "Last Inspection Date"
+- Renamed "Mileage at Last MOT" to "Mileage at Last Inspection"
+- Updated README to reflect current sensor set and API structure
+
 ## [1.0.3] - 2026-03-14
 
 ### Changed

@@ -1,6 +1,6 @@
 # Næste Syn — Home Assistant Integration
 
-Track your vehicle's next periodic inspection and MOT deadline directly in Home Assistant, with countdown sensors and calendar events that update automatically.
+Track your vehicle's next periodic inspection directly in Home Assistant, with a countdown sensor and calendar events that update automatically.
 
 Data is fetched from [MotorAPI](https://www.motorapi.dk), which queries the official Danish Motor Register (Motorregistret).
 
@@ -8,9 +8,10 @@ Data is fetched from [MotorAPI](https://www.motorapi.dk), which queries the offi
 
 ## Features
 
-- Sensors for **next inspection date** and **MOT deadline date**, each with a **countdown in days** (negative = overdue)
-- Optional sensors: VIN, vehicle use type, make, model, model year, mileage at last MOT
-- **Calendar entity** with events for each inspection date — visible in the HA Calendar dashboard and available to automations
+- Countdown sensor showing **days until next inspection** (negative = overdue)
+- Sensors for **next inspection date** and **last inspection date**
+- Optional sensors: mileage at last inspection, VIN, make, model, model year, vehicle use type
+- **Calendar entity** with an event for the next inspection — visible in the HA Calendar dashboard and available to automations
 - Supports multiple vehicles — add one config entry per registration number
 - Refreshes once every 24 hours
 
@@ -55,36 +56,39 @@ Optional sensors can be changed at any time via the integration's **Configure** 
 
 | Sensor | Always shown | Description |
 |--------|-------------|-------------|
-| Registration Number | Yes | The vehicle registration number |
-| Next Inspection Date | Yes | ISO date of the next periodic inspection |
 | Days Until Next Inspection | Yes | Countdown in days (negative = overdue) |
-| MOT Deadline Date | Yes | ISO date of the MOT deadline |
-| Days Until MOT Deadline | Yes | Countdown in days |
+| Next Inspection Date | Yes | Date of the next periodic inspection (ISO) |
+| Last Inspection Date | Yes | Date of the most recent inspection (ISO) |
+| Mileage at Last Inspection | Optional | Odometer reading (km) at last inspection |
 | VIN | Optional | Vehicle chassis number |
+| Registration Number | Yes | The vehicle registration number |
+| Make | Optional | e.g. "OPEL" |
+| Model | Optional | e.g. "ASTRA" |
+| Model Year | Optional | e.g. 2017 |
 | Vehicle Use | Optional | e.g. "Privat personkørsel" |
-| Mileage at Last MOT | Optional | Odometer reading (km) at last MOT |
-| Make | Optional | e.g. "AUDI" |
-| Model | Optional | e.g. "A6" |
-| Model Year | Optional | e.g. 2015 |
 
 ---
 
 ## Calendar
 
-Each vehicle gets a calendar entity (`calendar.inspection_[registration]`) with events for:
-
-- **Periodic Inspection** — next inspection date
-- **MOT Deadline** — MOT deadline date
+Each vehicle gets a calendar entity (`calendar.inspection_[registration]`) with an event for the **next periodic inspection** date. The event appears in the HA Calendar dashboard and can be used in automations.
 
 ---
 
 ## API field names
 
-The integration uses the following field names from the MotorAPI response (confirmed from [motorapi.dk](https://www.motorapi.dk)):
+The integration uses the following fields from the MotorAPI response (confirmed from [motorapi.dk](https://www.motorapi.dk)):
 
-```
-registration_number, vin, make, model, model_year, use,
-next_inspection_date, mot_date, mot_mileage
+Top-level fields: `registration_number`, `vin`, `make`, `model`, `model_year`, `use`
+
+Inspection fields are nested under `mot_info`:
+
+```json
+"mot_info": {
+  "date": "2025-09-10",
+  "mileage": 163000,
+  "next_inspection_date": "2027-09-10"
+}
 ```
 
 If the API uses different field names in a future version, update only the `FIELD_*` constants in `const.py`.
