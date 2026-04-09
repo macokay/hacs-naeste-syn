@@ -1,24 +1,41 @@
 ---
 name: Bug report
-about: Report a bug with the MotorAPI integration
+about: Report a bug with this integration
 title: "[BUG] "
 labels: bug
-assignees: ''
+assignees: macokay
 ---
 
-**Describe the bug**
-A clear description of what went wrong.
+## Describe the bug
 
-**To reproduce**
-Steps to reproduce the behaviour.
+A clear and concise description of what is wrong.
 
-**Expected behaviour**
-What you expected to happen.
+## Steps to reproduce
 
-**Logs**
-Relevant entries from Home Assistant logs (Settings → System → Logs).
+1. Go to '...'
+2. Click on '...'
+3. See error
 
-**Environment**
-- Home Assistant version:
-- Integration version:
-- Installation method (HACS / manual):
+## Expected behaviour
+
+A clear description of what you expected to happen.
+
+## Actual behaviour
+
+What actually happened.
+
+## Logs
+
+Relevant entries from Home Assistant logs. Go to **Settings → System → Logs** and filter by `naeste_syn`.
+
+```
+[paste logs here]
+```
+
+## Environment
+
+| Field | Value |
+|---|---|
+| Home Assistant version | |
+| Integration version | |
+| Installation method | HACS / Manual |
