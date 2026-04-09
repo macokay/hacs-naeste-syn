@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 400" width="100%" height="100%">
+  <defs>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+    <filter id="shadow-sm" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.12" />
+    </filter>
+    <path id="star" d="M0,-3.5 L0.8,-1.1 L3.3,-1.1 L1.3,0.4 L2,2.8 L0,1.3 L-2,2.8 L-1.3,0.4 L-3.3,-1.1 L-0.8,-1.1 Z" fill="#FDE047" />
+    
+    <clipPath id="plate-clip">
+      <rect x="50" y="100" width="400" height="90" rx="8" ry="8" />
+    </clipPath>
+    <clipPath id="cal-clip">
+      <rect x="200" y="230" width="100" height="100" rx="14" ry="14" />
+    </clipPath>
+
+    <!-- Gradients -->
+    <linearGradient id="plate-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F1F5F9" />
+    </linearGradient>
+    <linearGradient id="blue-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1E3A8A" />
+    </linearGradient>
+    <linearGradient id="cal-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
+    </linearGradient>
+    <linearGradient id="red-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EF4444" />
+      <stop offset="100%" stop-color="#B91C1C" />
+    </linearGradient>
+  </defs>
+
+  <!-- Number Plate -->
+  <g filter="url(#glow)">
+    <!-- Plate Base -->
+    <rect x="50" y="100" width="400" height="90" rx="8" ry="8" fill="url(#plate-grad)" stroke="#DC2626" stroke-width="2.5" />
+    
+    <!-- EU blue band -->
+    <rect x="50" y="100" width="45" height="90" fill="url(#blue-grad)" clip-path="url(#plate-clip)" />
+    
+    <!-- EU Stars -->
+    <g>
+      <use x="72.5" y="126" href="#star" />
+      <use x="79.5" y="127.88" href="#star" />
+      <use x="84.62" y="133" href="#star" />
+      <use x="86.5" y="140" href="#star" />
+      <use x="84.62" y="147" href="#star" />
+      <use x="79.5" y="152.12" href="#star" />
+      <use x="72.5" y="154" href="#star" />
+      <use x="65.5" y="152.12" href="#star" />
+      <use x="60.38" y="147" href="#star" />
+      <use x="58.5" y="140" href="#star" />
+      <use x="60.38" y="133" href="#star" />
+      <use x="65.5" y="127.88" href="#star" />
+    </g>
+    
+    <!-- DK Text -->
+    <text x="72.5" y="176" text-anchor="middle" font-family="'Inter', -apple-system, sans-serif" font-size="16" font-weight="900" fill="#FFFFFF" letter-spacing="1">DK</text>
+    
+    <!-- Plate Text -->
+    <text x="272.5" y="166" text-anchor="middle" font-family="'SF Pro Display', 'Helvetica Neue', Arial, sans-serif" font-size="54" font-weight="800" fill="#0F172A" letter-spacing="4">AB 12345</text>
+  </g>
+
+  <!-- Calendar Icon -->
+  <g filter="url(#shadow-sm)">
+    <!-- Base -->
+    <rect x="200" y="230" width="100" height="100" rx="14" ry="14" fill="url(#cal-grad)" stroke="#94A3B8" stroke-width="2" />
+    
+    <!-- Red Header -->
+    <rect x="200" y="230" width="100" height="32" fill="url(#red-grad)" clip-path="url(#cal-clip)" />
+    <!-- Overlay stroke -->
+    <rect x="200" y="230" width="100" height="100" rx="14" ry="14" fill="none" stroke="#94A3B8" stroke-width="2" />
+
+    <!-- Calendar Binders (Rings) -->
+    <rect x="220" y="218" width="12" height="26" rx="6" fill="#CBD5E1" stroke="#64748B" stroke-width="1.5" />
+    <rect x="268" y="218" width="12" height="26" rx="6" fill="#CBD5E1" stroke="#64748B" stroke-width="1.5" />
+
+    <!-- Calendar Grid -->
+    <circle cx="225" cy="285" r="5.5" fill="#64748B" />
+    <circle cx="250" cy="285" r="5.5" fill="#64748B" />
+    <circle cx="275" cy="285" r="5.5" fill="#64748B" />
+    <circle cx="225" cy="310" r="5.5" fill="#64748B" />
+    <circle cx="250" cy="310" r="5.5" fill="#64748B" />
+    <circle cx="275" cy="310" r="5.5" fill="#EF4444" />
+  </g>
+</svg>
