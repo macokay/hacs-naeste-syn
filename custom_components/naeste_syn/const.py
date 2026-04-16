@@ -32,17 +32,17 @@ CONF_SHOW_MODEL_YEAR = "show_model_year"
 # ---------------------------------------------------------------------------
 
 # Top-level fields
-FIELD_REGISTRATION    = "registration_number"
-FIELD_VIN             = "vin"
-FIELD_MAKE            = "make"
-FIELD_MODEL           = "model"
-FIELD_MODEL_YEAR      = "model_year"
-FIELD_USE             = "use"
+FIELD_REGISTRATION = "registration_number"
+FIELD_VIN = "vin"
+FIELD_MAKE = "make"
+FIELD_MODEL = "model"
+FIELD_MODEL_YEAR = "model_year"
+FIELD_USE = "use"
 
 # Nested mot_info object key
-FIELD_MOT_INFO        = "mot_info"
+FIELD_MOT_INFO = "mot_info"
 
 # Keys inside mot_info
-FIELD_MOT_DATE        = "date"
-FIELD_MOT_MILEAGE     = "mileage"
+FIELD_MOT_DATE = "date"
+FIELD_MOT_MILEAGE = "mileage"
 FIELD_NEXT_INSPECTION = "next_inspection_date"
