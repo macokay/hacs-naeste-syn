@@ -1,7 +1,7 @@
 {
   "domain": "naeste_syn",
   "name": "Næste Syn",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "documentation": "https://github.com/macokay/hacs-naeste-syn",
   "issue_tracker": "https://github.com/macokay/hacs-naeste-syn/issues",
   "dependencies": [],
