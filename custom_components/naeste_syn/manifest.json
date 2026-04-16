@@ -1,7 +1,9 @@
 {
   "domain": "naeste_syn",
-  "name": "Næste Syn",
-  "codeowners": ["@macokay"],
+  "name": "N\u00e6ste Syn",
+  "codeowners": [
+    "@macokay"
+  ],
   "config_flow": true,
   "dependencies": [],
   "documentation": "https://github.com/macokay/hacs-naeste-syn",
