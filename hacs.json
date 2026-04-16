@@ -1,5 +1,4 @@
 {
   "name": "Næste Syn",
-  "render_readme": true,
-  "icon": "https://raw.githubusercontent.com/macokay/hacs-naeste-syn/main/icon.png"
+  "render_readme": true
 }
