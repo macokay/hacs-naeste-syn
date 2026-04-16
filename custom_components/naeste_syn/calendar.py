@@ -70,9 +70,7 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
         try:
             return date.fromisoformat(str(date_str)[:10])
         except (ValueError, TypeError):
-            _LOGGER.warning(
-                "Næste Syn calendar: could not parse date '%s'", date_str
-            )
+            _LOGGER.warning("Næste Syn calendar: could not parse date '%s'", date_str)
             return None
 
     def _build_events(self) -> list[CalendarEvent]:
@@ -82,7 +80,7 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
             return []
 
         mot = data.get(FIELD_MOT_INFO) or {}
-        make  = data.get(FIELD_MAKE, "")
+        make = data.get(FIELD_MAKE, "")
         model = data.get(FIELD_MODEL, "")
         description = f"{make} {model}".strip() or self.coordinator.registration
 
@@ -127,7 +125,4 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
         """Return all events within the requested date range."""
         start = start_date.date() if isinstance(start_date, datetime) else start_date
         end = end_date.date() if isinstance(end_date, datetime) else end_date
-        return [
-            e for e in self._build_events()
-            if e.start <= end and e.end >= start
-        ]
+        return [e for e in self._build_events() if e.start <= end and e.end >= start]

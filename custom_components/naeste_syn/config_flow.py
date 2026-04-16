@@ -133,12 +133,26 @@ class NaesteSynOptionsFlow(config_entries.OptionsFlow):
         current = {**self._entry.data, **self._entry.options}
         schema = vol.Schema(
             {
-                vol.Optional(CONF_SHOW_VIN, default=current.get(CONF_SHOW_VIN, True)): bool,
-                vol.Optional(CONF_SHOW_USE, default=current.get(CONF_SHOW_USE, False)): bool,
-                vol.Optional(CONF_SHOW_MOT_MILEAGE, default=current.get(CONF_SHOW_MOT_MILEAGE, True)): bool,
-                vol.Optional(CONF_SHOW_MAKE, default=current.get(CONF_SHOW_MAKE, True)): bool,
-                vol.Optional(CONF_SHOW_MODEL, default=current.get(CONF_SHOW_MODEL, True)): bool,
-                vol.Optional(CONF_SHOW_MODEL_YEAR, default=current.get(CONF_SHOW_MODEL_YEAR, True)): bool,
+                vol.Optional(
+                    CONF_SHOW_VIN, default=current.get(CONF_SHOW_VIN, True)
+                ): bool,
+                vol.Optional(
+                    CONF_SHOW_USE, default=current.get(CONF_SHOW_USE, False)
+                ): bool,
+                vol.Optional(
+                    CONF_SHOW_MOT_MILEAGE,
+                    default=current.get(CONF_SHOW_MOT_MILEAGE, True),
+                ): bool,
+                vol.Optional(
+                    CONF_SHOW_MAKE, default=current.get(CONF_SHOW_MAKE, True)
+                ): bool,
+                vol.Optional(
+                    CONF_SHOW_MODEL, default=current.get(CONF_SHOW_MODEL, True)
+                ): bool,
+                vol.Optional(
+                    CONF_SHOW_MODEL_YEAR,
+                    default=current.get(CONF_SHOW_MODEL_YEAR, True),
+                ): bool,
             }
         )
         return self.async_show_form(step_id="init", data_schema=schema)
