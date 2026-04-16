@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Set up Næste Syn",
-        "description": "Enter your MotorAPI key and your vehicle registration number.\n\nApply for API access at [motorapi.dk](https://www.motorapi.dk).",
+        "description": "Enter your MotorAPI key and your vehicle registration number.\n\nApply for API access at motorapi.dk.",
         "data": {
           "api_key": "API Key",
           "registration_number": "Registration Number (e.g. AB12345)",

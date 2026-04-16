@@ -3,7 +3,7 @@
     "step": {
       "user": {
         "title": "Opsæt Næste Syn",
-        "description": "Indtast din MotorAPI-nøgle og køretøjets nummerplade.\n\nSøg om API-adgang på [motorapi.dk](https://www.motorapi.dk).",
+        "description": "Indtast din MotorAPI-nøgle og køretøjets nummerplade.\n\nSøg om API-adgang på motorapi.dk.",
         "data": {
           "api_key": "API-nøgle",
           "registration_number": "Nummerplade (fx AB12345)",
