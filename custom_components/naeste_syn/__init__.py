@@ -10,7 +10,7 @@ import logging
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
-from .const import DOMAIN, CONF_API_KEY, CONF_REGISTRATION
+from .const import CONF_API_KEY, CONF_REGISTRATION, DOMAIN
 from .coordinator import NaesteSynCoordinator
 
 _LOGGER = logging.getLogger(__name__)

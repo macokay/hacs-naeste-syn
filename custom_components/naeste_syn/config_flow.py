@@ -7,24 +7,23 @@ from typing import Any
 
 import aiohttp
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.data_entry_flow import FlowResult
 
 from .const import (
-    DOMAIN,
+    API_AUTH_HEADER,
     API_BASE_URL,
     API_ENDPOINT,
-    API_AUTH_HEADER,
     CONF_API_KEY,
     CONF_REGISTRATION,
-    CONF_SHOW_VIN,
-    CONF_SHOW_USE,
-    CONF_SHOW_MOT_MILEAGE,
     CONF_SHOW_MAKE,
     CONF_SHOW_MODEL,
     CONF_SHOW_MODEL_YEAR,
+    CONF_SHOW_MOT_MILEAGE,
+    CONF_SHOW_USE,
+    CONF_SHOW_VIN,
+    DOMAIN,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -47,18 +46,20 @@ async def _validate(api_key: str, registration: str) -> None:
     reg = registration.upper().replace(" ", "")
     url = f"{API_BASE_URL}{API_ENDPOINT.format(registration=reg)}"
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
+        async with (
+            aiohttp.ClientSession() as session,
+            session.get(
                 url,
                 headers={API_AUTH_HEADER: api_key},
                 timeout=aiohttp.ClientTimeout(total=30),
-            ) as resp:
-                if resp.status == 401:
-                    raise _InvalidAuth
-                if resp.status == 404:
-                    raise _VehicleNotFound
-                if resp.status >= 400:
-                    raise _CannotConnect
+            ) as resp,
+        ):
+            if resp.status == 401:
+                raise _InvalidAuth
+            if resp.status == 404:
+                raise _VehicleNotFound
+            if resp.status >= 400:
+                raise _CannotConnect
     except aiohttp.ClientError as err:
         raise _CannotConnect from err
 

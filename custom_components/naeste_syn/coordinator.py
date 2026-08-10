@@ -7,11 +7,10 @@ from datetime import timedelta
 from typing import Any
 
 import aiohttp
-
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, API_BASE_URL, API_ENDPOINT, API_AUTH_HEADER
+from .const import API_AUTH_HEADER, API_BASE_URL, API_ENDPOINT, DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -43,22 +42,24 @@ class NaesteSynCoordinator(DataUpdateCoordinator[dict[str, Any]]):
         headers = {API_AUTH_HEADER: self._api_key}
 
         try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
+            async with (
+                aiohttp.ClientSession() as session,
+                session.get(
                     url, headers=headers, timeout=aiohttp.ClientTimeout(total=30)
-                ) as resp:
-                    if resp.status == 401:
-                        raise UpdateFailed(
-                            f"Invalid API key (401 Unauthorized) for {self._registration}"
-                        )
-                    if resp.status == 404:
-                        raise UpdateFailed(
-                            f"Vehicle '{self._registration}' not found in MotorAPI (404)"
-                        )
-                    if resp.status >= 400:
-                        raise UpdateFailed(
-                            f"MotorAPI returned HTTP {resp.status} for {self._registration}"
-                        )
-                    return await resp.json()
+                ) as resp,
+            ):
+                if resp.status == 401:
+                    raise UpdateFailed(
+                        f"Invalid API key (401 Unauthorized) for {self._registration}"
+                    )
+                if resp.status == 404:
+                    raise UpdateFailed(
+                        f"Vehicle '{self._registration}' not found in MotorAPI (404)"
+                    )
+                if resp.status >= 400:
+                    raise UpdateFailed(
+                        f"MotorAPI returned HTTP {resp.status} for {self._registration}"
+                    )
+                return await resp.json()
         except aiohttp.ClientError as err:
             raise UpdateFailed(f"Network error contacting MotorAPI: {err}") from err

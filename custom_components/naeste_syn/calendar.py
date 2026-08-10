@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from datetime import date, datetime, timedelta
 import logging
+from datetime import date, datetime, timedelta
 
 from homeassistant.components.calendar import CalendarEntity, CalendarEvent
 from homeassistant.config_entries import ConfigEntry
@@ -11,14 +11,15 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt as dt_util
 
 from .const import (
     DOMAIN,
     FIELD_MAKE,
     FIELD_MODEL,
+    FIELD_MOT_DATE,
     FIELD_MOT_INFO,
     FIELD_NEXT_INSPECTION,
-    FIELD_MOT_DATE,
 )
 from .coordinator import NaesteSynCoordinator
 
@@ -112,7 +113,7 @@ class NaesteSynCalendar(CoordinatorEntity[NaesteSynCoordinator], CalendarEntity)
     @property
     def event(self) -> CalendarEvent | None:
         """Return the next upcoming event (required by CalendarEntity)."""
-        today = date.today()
+        today = dt_util.now().date()
         upcoming = [e for e in self._build_events() if e.end >= today]
         return min(upcoming, key=lambda e: e.start) if upcoming else None
 

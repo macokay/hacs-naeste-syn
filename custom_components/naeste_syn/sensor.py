@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import date
-import logging
-from typing import Any, Callable
+from typing import Any
 
 from homeassistant.components.sensor import (
     SensorEntity,
@@ -17,25 +18,26 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+from homeassistant.util import dt as dt_util
 
 from .const import (
-    DOMAIN,
-    CONF_SHOW_VIN,
-    CONF_SHOW_USE,
-    CONF_SHOW_MOT_MILEAGE,
     CONF_SHOW_MAKE,
     CONF_SHOW_MODEL,
     CONF_SHOW_MODEL_YEAR,
-    FIELD_REGISTRATION,
-    FIELD_VIN,
+    CONF_SHOW_MOT_MILEAGE,
+    CONF_SHOW_USE,
+    CONF_SHOW_VIN,
+    DOMAIN,
     FIELD_MAKE,
     FIELD_MODEL,
     FIELD_MODEL_YEAR,
-    FIELD_USE,
-    FIELD_MOT_INFO,
     FIELD_MOT_DATE,
+    FIELD_MOT_INFO,
     FIELD_MOT_MILEAGE,
     FIELD_NEXT_INSPECTION,
+    FIELD_REGISTRATION,
+    FIELD_USE,
+    FIELD_VIN,
 )
 from .coordinator import NaesteSynCoordinator
 
@@ -52,7 +54,7 @@ def _days_until(date_str: str | None) -> int | None:
     if not date_str:
         return None
     try:
-        return (date.fromisoformat(str(date_str)[:10]) - date.today()).days
+        return (date.fromisoformat(str(date_str)[:10]) - dt_util.now().date()).days
     except (ValueError, TypeError):
         _LOGGER.warning("Næste Syn: could not parse date '%s'", date_str)
         return None
